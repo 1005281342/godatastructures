@@ -27,7 +27,8 @@ type MinStack struct {
 
 /** initialize your data structure here. */
 func Constructor() MinStack {
-	return MinStack{stk: stack.NewStack(10000)}
+	//return MinStack{stk: stack.NewStack(10000)}
+	return MinStack{stk: stack.NewStack(-1)}
 }
 
 func (m *MinStack) Push(x int) {
@@ -65,3 +66,6 @@ func (m *MinStack) GetMin() int {
  * param_3 := obj.Top()
  * param_4 := obj.GetMin()
  */
+
+//基于链表 执行用时：20ms,在所有Go提交中击败了81.70%的用户
+//内存消耗：9.7MB,在所有Go提交中击败了13.12%的用户
