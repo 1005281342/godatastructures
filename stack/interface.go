@@ -1,8 +1,8 @@
 package stack
 
 import (
+	"github.com/1005281342/godatastructures/stack/stack"
 	"github.com/1005281342/godatastructures/stack/stackwithcapacity"
-	"github.com/1005281342/godatastructures/stack/stackwithinfinite"
 )
 
 type Stack interface {
@@ -30,7 +30,7 @@ type Stack interface {
 func NewStack(cap int) Stack {
 
 	if cap <= 0 {
-		return stackwithinfinite.NewStack()
+		return stack.NewStack()
 	}
 	return stackwithcapacity.NewStack(cap)
 }

@@ -1,0 +1,118 @@
+package main
+
+import (
+	"container/list"
+	"math"
+	"sync"
+)
+
+// https://leetcode-cn.com/problems/min-stack/
+type MinStack struct {
+	stk *Stack
+}
+
+/** initialize your data structure here. */
+func Constructor() MinStack {
+	return MinStack{stk: NewStack()}
+}
+
+func (m *MinStack) Push(x int) {
+
+	var y = x
+	if y > m.GetMin() {
+		y = m.GetMin()
+	}
+	m.stk.Push([2]int{x, y})
+}
+
+func (m *MinStack) Pop() {
+	m.stk.Pop()
+}
+
+func (m *MinStack) Top() int {
+	v, _ := m.stk.Top()
+	return v.([2]int)[0]
+}
+
+func (m *MinStack) GetMin() int {
+	if m.stk.Empty() {
+		return math.MaxInt32
+	}
+
+	v, _ := m.stk.Top()
+	return v.([2]int)[1]
+}
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * obj := Constructor();
+ * obj.Push(x);
+ * obj.Pop();
+ * param_3 := obj.Top();
+ * param_4 := obj.GetMin();
+ */
+
+
+type Stack struct {
+	lst  *list.List
+	lock sync.RWMutex
+}
+
+func NewStack() *Stack {
+	return &Stack{lst: list.New()}
+}
+
+func (stk *Stack) Push(val interface{}) bool {
+	stk.lock.Lock()
+	defer stk.lock.Unlock()
+
+	stk.lst.PushBack(val)
+	return true
+}
+
+func (stk *Stack) Pop() (interface{}, bool) {
+	if stk.Empty() {
+		return nil, false
+	}
+
+	stk.lock.Lock()
+	defer stk.lock.Unlock()
+
+	// 移除尾节点
+	var v = stk.lst.Remove(stk.lst.Back())
+	return v, false
+}
+
+// Empty栈是否为空
+func (stk *Stack) Empty() bool {
+	return stk.Len() == 0
+}
+
+// Top获取栈顶元素
+func (stk *Stack) Top() (interface{}, bool) {
+	if stk.Empty() {
+		return nil, false
+	}
+
+	stk.lock.RLock()
+	defer stk.lock.RUnlock()
+
+	return stk.lst.Back().Value, true
+}
+
+// BatchPush批量添加
+func (stk *Stack) BatchPush(valList ...interface{}) bool {
+
+	stk.lock.Lock()
+	defer stk.lock.Unlock()
+
+	for i := 0; i < len(valList)-1; i++ {
+		stk.lst.PushBack(valList[i])
+	}
+	stk.lst.PushBack(valList[len(valList)-1])
+	return true
+}
+
+func (stk *Stack) Len() int {
+	return stk.lst.Len()
+}
