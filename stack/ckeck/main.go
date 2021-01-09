@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/1005281342/godatastructures/stack"
 	"math"
+
+	"github.com/1005281342/godatastructures/stack"
 )
 
 func main() {

@@ -77,26 +77,26 @@ func (h *Heap) down(u int) {
 	}
 }
 
-func (h *Heap) up(u int) {
-	for {
-		var root = (u - 1) >> 1
-		if root < 0 || h.items[root] >= h.items[u] {
-			break
-		}
-		h.items[u], h.items[root] = h.items[root], h.items[u]
-		u = root
-	}
-}
+//func (h *Heap) up(u int) {
+//	for {
+//		var root = (u - 1) >> 1
+//		if root < 0 || h.items[root] >= h.items[u] {
+//			break
+//		}
+//		h.items[u], h.items[root] = h.items[root], h.items[u]
+//		u = root
+//	}
+//}
 
 func readLine(reader *bufio.Reader) string {
 	var line, _ = reader.ReadString('\n')
 	return strings.TrimRight(line, "\n")
 }
 
-func readInt(reader *bufio.Reader) int {
-	var num, _ = strconv.Atoi(readLine(reader))
-	return num
-}
+//func readInt(reader *bufio.Reader) int {
+//	var num, _ = strconv.Atoi(readLine(reader))
+//	return num
+//}
 
 func readArray(reader *bufio.Reader) []int {
 	var line = readLine(reader)

@@ -4,6 +4,10 @@ import "fmt"
 
 // 验证地址https://leetcode-cn.com/problems/top-k-frequent-elements/
 
+func main() {
+	topKFrequent([]int{1, 2, 3}, 0)
+}
+
 func topKFrequent(nums []int, k int) []int {
 	var mp = make(map[int]int)
 	for i := 0; i < len(nums); i++ {

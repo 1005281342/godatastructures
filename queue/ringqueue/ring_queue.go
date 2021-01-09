@@ -69,7 +69,7 @@ func (q *RingQueue) LAppend(x interface{}) bool {
 	if q.front == 0 {
 		q.front = q.length - 1
 	} else {
-		q.front -= 1
+		q.front--
 	}
 	q.nums[q.front] = x
 	return true
@@ -104,7 +104,7 @@ func (q *RingQueue) Pop() (interface{}, bool) {
 	if q.rear == 0 {
 		q.rear = q.length - 1
 	} else {
-		q.rear -= 1
+		q.rear--
 	}
 	// q.rear指向队列尾部（即最后1个有效数据）的下一个位置，即下一个从队尾入队元素的位置
 	// 上一个被Pop的元素即为q.rear
@@ -124,7 +124,7 @@ func (q *RingQueue) LPop() (interface{}, bool) {
 	if q.front == q.length-1 { // front指针后移一位 // q.front = (q.front + 1) % q.length
 		q.front = 0
 	} else {
-		q.front += 1
+		q.front++
 	}
 	return v, true
 }
