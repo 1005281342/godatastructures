@@ -14,7 +14,7 @@ const (
 
 // SkipList跳表
 type SkipList struct {
-	// 虚拟头节点
+	// 虚拟头节点，最高层
 	head *node
 	// 层级
 	level int
@@ -45,7 +45,7 @@ func Constructor() SkipList {
 		head: &node{
 			val: headValue,
 		}, //头节点 设置为一个极小的值
-		level:  1, //跳表层数（包括原链表）
+		level:  1, //跳表层数，初始化为1级
 		length: 1, //原链包的个数（包括虚拟头节点）
 	}
 }
@@ -69,7 +69,10 @@ func (s *SkipList) Add(num int) {
 		i     int
 		nodes = make([]*node, s.level+1)
 	)
+
+	// 从最高层往下查找符合条件的节点
 	for n != nil {
+		// 直到找到一个节点的下一个节点是大于目标值的
 		for n.right != nil && n.right.val < num {
 			n = n.right
 		}
@@ -77,37 +80,48 @@ func (s *SkipList) Add(num int) {
 		i++
 		n = n.down
 	}
-	i--                       // 最后一个i是没有值的要去掉
-	var beforeNode = nodes[i] // 原链表的的前值
-	newNode := &node{
-		val:   num,
-		right: beforeNode.right,
-	}
+	i-- // 最后一个i是没有值的要去掉
+
+	// 最底层链表添加新节点
+	var (
+		beforeNode = nodes[i] // 原链表的的前值
+		newNode    = &node{
+			val:   num,
+			right: beforeNode.right,
+		}
+	)
 	beforeNode.right = newNode
 	s.length++
-	// 50%概率建立索引
+
+	// 建立索引
 	for {
-		if rand.Intn(2) == 0 || s.level > s.length>>6+1 {
+		// 索引建立规则
+		if rand.Intn(2) == 0 || s.level > (s.length>>6)+1 {
 			break
 		}
+
 		if i > 0 {
+			// 从底层往上插入目标节点
 			i--
 			newNode = &node{
 				val:   num,
-				right: nodes[i].right,
-				down:  newNode,
+				right: nodes[i].right, // 连接右节点
+				down:  newNode,        // 连接下一层
 			}
+			// 前一节点与目标节点相连
 			nodes[i].right = newNode
 		} else {
-			// 超过最大层数建索引
+			// 新增层级
 			newNode = &node{
 				val:  num,
 				down: newNode,
+				// 改节点是新层级的最后一个节点，因此没有右节点
 			}
+			// 虚拟节点
 			s.head = &node{
 				val:   headValue,
-				right: newNode,
-				down:  s.head,
+				right: newNode, // 向由连接新节点
+				down:  s.head,  // 向下连接前一虚拟节点
 			}
 			s.level++
 		}
@@ -126,12 +140,17 @@ func (s *SkipList) Erase(num int) bool {
 	if before == nil {
 		return false
 	}
+
+	// 逐级移除节点
 	for {
 		if before == nil {
 			break
 		}
+		// 移除目标节点
 		before.right = before.right.right
+		// 降级
 		before = before.down
+		// 继续寻找下一个满足条件的节点
 		before = s.getBefore(num, before)
 	}
 	s.length--
