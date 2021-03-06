@@ -30,7 +30,6 @@ func (stk *Stack) Full() bool {
 
 // Push栈有空间时可添加
 func (stk *Stack) Push(val interface{}) bool {
-
 	if stk.Full() {
 		return false
 	}
@@ -45,7 +44,6 @@ func (stk *Stack) Push(val interface{}) bool {
 
 // Usable计算栈的可用空间
 func (stk *Stack) Usable() int {
-
 	var usable = stk.capacity - stk.use
 	if usable >= 0 {
 		return usable
@@ -56,7 +54,6 @@ func (stk *Stack) Usable() int {
 
 // BatchPush批量添加
 func (stk *Stack) BatchPush(valList ...interface{}) bool {
-
 	if len(valList) > stk.Usable() {
 		return false
 	}

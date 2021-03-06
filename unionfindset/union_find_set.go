@@ -29,7 +29,6 @@ func (dsu DSU) Union(a, b int) bool {
 		aRoot = dsu.Find(a)
 		bRoot = dsu.Find(b)
 	)
-
 	if aRoot == bRoot {
 		return false
 	}

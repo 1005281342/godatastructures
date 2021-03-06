@@ -28,7 +28,6 @@ type Stack interface {
 }
 
 func NewStack(cap int) Stack {
-
 	if cap <= 0 {
 		return stack.NewStack()
 	}

@@ -1,32 +1,32 @@
 package heap
 
-type Heap struct {
+type IntHeap struct {
 	items []int
 	size  int
 }
 
-func NewHeap(items ...int) *Heap {
-	var hp = &Heap{items: items, size: len(items)}
-	hp.initHeap()
+func NewIntHeap(items ...int) *IntHeap {
+	var hp = &IntHeap{items: items, size: len(items)}
+	hp.initIntHeap()
 	return hp
 }
 
-func (h *Heap) Len() int {
+func (h *IntHeap) Len() int {
 	return h.size
 }
 
-func (h *Heap) Empty() bool {
+func (h *IntHeap) Empty() bool {
 	return h.Len() == 0
 }
 
-func (h *Heap) Top() (int, bool) {
+func (h *IntHeap) Top() (int, bool) {
 	if h.Empty() {
 		return 0, false
 	}
 	return h.items[0], true
 }
 
-func (h *Heap) Pop() (int, bool) {
+func (h *IntHeap) Pop() (int, bool) {
 	if h.Empty() {
 		return 0, false
 	}
@@ -38,7 +38,7 @@ func (h *Heap) Pop() (int, bool) {
 	return ans, true
 }
 
-func (h *Heap) Remove(index int) (int, bool) {
+func (h *IntHeap) Remove(index int) (int, bool) {
 	if h.Empty() {
 		return 0, false
 	}
@@ -51,7 +51,7 @@ func (h *Heap) Remove(index int) (int, bool) {
 }
 
 // Push
-func (h *Heap) Push(v int) {
+func (h *IntHeap) Push(v int) {
 	if h.size < len(h.items) {
 		h.size++
 		h.items[h.size-1] = v
@@ -65,13 +65,13 @@ func (h *Heap) Push(v int) {
 	h.up(h.size - 1)
 }
 
-func (h *Heap) initHeap() {
+func (h *IntHeap) initIntHeap() {
 	for i := h.Len() >> 1; i >= 0; i-- {
 		h.down(i)
 	}
 }
 
-func (h *Heap) down(u int) {
+func (h *IntHeap) down(u int) {
 	var (
 		t     = u
 		left  = 2*u + 1
@@ -89,7 +89,7 @@ func (h *Heap) down(u int) {
 	}
 }
 
-func (h *Heap) up(u int) {
+func (h *IntHeap) up(u int) {
 	for {
 		var root = (u - 1) >> 1
 		if root < 0 || h.items[root] <= h.items[u] {

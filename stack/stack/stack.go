@@ -10,6 +10,7 @@ type Stack struct {
 	lock sync.RWMutex
 }
 
+// NewStack
 func NewStack() *Stack {
 	return &Stack{lst: list.New()}
 }
@@ -54,7 +55,6 @@ func (stk *Stack) Top() (interface{}, bool) {
 
 // BatchPush批量添加
 func (stk *Stack) BatchPush(valList ...interface{}) bool {
-
 	stk.lock.Lock()
 	defer stk.lock.Unlock()
 
