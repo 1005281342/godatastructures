@@ -17,9 +17,11 @@ func ConstructorDSU(n int) DSU {
 // 如`dsu[i] = -1`，这样在合并时求解是否存在环的时候所找根节点都会为-1而造成误判
 func (dsu DSU) Find(a int) int {
 	if dsu[a] != a {
+		// 某个节点的根节点不是自身时
 		// 路径压缩
 		dsu[a] = dsu.Find(dsu[a])
 	}
+	// 获取到根节点
 	return dsu[a]
 }
 
