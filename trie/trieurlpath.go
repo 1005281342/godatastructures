@@ -14,7 +14,7 @@ type NodeURLPath struct {
 	urlPaths map[string]*NodeURLPath
 }
 
-// NewTrie trie构造函数
+// NewURLPathTrie trie构造函数
 func NewURLPathTrie() *NodeURLPath {
 	// init
 	return &NodeURLPath{urlPaths: map[string]*NodeURLPath{}}
