@@ -1,4 +1,4 @@
-package trie
+package router
 
 import (
 	"testing"
