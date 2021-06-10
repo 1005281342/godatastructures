@@ -50,12 +50,3 @@ func (a *ArrayTrie) HasPrefix(prefix string) bool {
 	}
 	return true
 }
-
-func (a *ArrayTrie) Delete(word string) bool {
-	var node, has = a.search(word)
-	if !has {
-		return false
-	}
-	node.isWord = false
-	return true
-}

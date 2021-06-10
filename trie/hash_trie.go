@@ -50,12 +50,3 @@ func (h *HashTrie) HasPrefix(prefix string) bool {
 	}
 	return true
 }
-
-func (h *HashTrie) Delete(word string) bool {
-	var node, has = h.search(word)
-	if !has {
-		return false
-	}
-	node.isWord = false
-	return true
-}

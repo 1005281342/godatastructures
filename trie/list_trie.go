@@ -63,12 +63,3 @@ func (a *ListTrie) HasPrefix(prefix string) bool {
 	}
 	return true
 }
-
-func (a *ListTrie) Delete(word string) bool {
-	var node, has = a.search(word)
-	if !has {
-		return false
-	}
-	node.isWord = false
-	return true
-}
