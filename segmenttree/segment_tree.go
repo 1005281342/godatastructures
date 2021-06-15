@@ -4,6 +4,10 @@ import (
 	"errors"
 )
 
+var (
+	ErrIndexIllegal = errors.New("index is illegal")
+)
+
 type Merge func(interface{}, interface{}) interface{}
 
 // SegmentTree 线段树
@@ -24,14 +28,17 @@ func New(array []interface{}, merger Merge) *SegmentTree {
 	return seg
 }
 
+// leftChild 左子树index
 func (s *SegmentTree) leftChild(idx int) int {
 	return (idx << 1) + 1
 }
 
+// rightChild 右子树index
 func (s *SegmentTree) rightChild(idx int) int {
 	return (idx << 1) + 2
 }
 
+// buildSegmentTree 建立线段树
 func (s *SegmentTree) buildSegmentTree(idx int, left int, right int) {
 	if left == right {
 		s.tree[idx] = s.data[left]
@@ -50,15 +57,25 @@ func (s *SegmentTree) buildSegmentTree(idx int, left int, right int) {
 	s.tree[idx] = s.merger(s.tree[leftTreeIdx], s.tree[rightTreeIdx])
 }
 
+// Size 线段树元素数
 func (s *SegmentTree) Size() int {
 	return len(s.data)
 }
 
+// Get 索引原数组值
 func (s *SegmentTree) Get(idx int) (interface{}, error) {
 	if idx < 0 || idx >= s.Size() {
-		return nil, errors.New("index is illegal")
+		return nil, ErrIndexIllegal
 	}
 	return s.data[idx], nil
+}
+
+// Query 区间查询
+func (s *SegmentTree) Query(queryLeft int, queryRight int) (interface{}, error) {
+	if queryLeft < 0 || queryRight < 0 || queryLeft >= s.Size() || queryRight >= s.Size() {
+		return nil, ErrIndexIllegal
+	}
+	return s.query(0, 0, s.Size()-1, queryLeft, queryRight), nil
 }
 
 func (s *SegmentTree) query(idx int, left int, right int, queryLeft int, queryRight int) interface{} {
@@ -88,4 +105,39 @@ func (s *SegmentTree) query(idx int, left int, right int, queryLeft int, queryRi
 		// 查询右部分
 		s.query(rightIdx, mid+1, right, mid+1, queryRight),
 	)
+}
+
+// Set 更新元素值
+func (s *SegmentTree) Set(idx int, e interface{}) error {
+	if idx < 0 || idx >= s.Size() {
+		return ErrIndexIllegal
+	}
+	// 更新数组元素值
+	s.data[idx] = e
+	// 更新tree元素值
+	s.set(idx, 0, s.Size()-1, e)
+	return nil
+}
+
+func (s *SegmentTree) set(idx int, left int, right int, e interface{}) {
+	if left == right {
+		// 命中节点，更新元素值
+		s.tree[left] = e
+		return
+	}
+
+	var (
+		leftIdx  = s.leftChild(idx)
+		rightIdx = s.rightChild(idx)
+		mid      = left + (right-left)/2
+	)
+	if leftIdx <= mid {
+		// idx在左边
+		s.set(idx, leftIdx, mid, e)
+	} else {
+		// idx在右边
+		s.set(idx, mid+1, right, e)
+	}
+	// merger
+	s.tree[idx] = s.merger(s.tree[leftIdx], s.tree[rightIdx])
 }
