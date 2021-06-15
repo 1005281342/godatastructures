@@ -1,8 +1,27 @@
-package segmenttree
+package main
 
-import (
-	"errors"
-)
+import "errors"
+
+type NumArray struct {
+	seg *SegmentTree
+}
+
+func Constructor(nums []int) NumArray {
+	var ns = make([]interface{}, len(nums))
+	for i := 0; i < len(nums); i++ {
+		ns[i] = nums[i]
+	}
+	return NumArray{seg: New(ns, sum)}
+}
+
+func (this *NumArray) SumRange(left int, right int) int {
+	var ans, _ = this.seg.Query(left, right)
+	return ans.(int)
+}
+
+func sum(a interface{}, b interface{}) interface{} {
+	return a.(int) + b.(int)
+}
 
 var (
 	ErrIndexIllegal = errors.New("index is illegal")
@@ -141,3 +160,38 @@ func (s *SegmentTree) set(idx int, left int, right int, index int, e interface{}
 	// merger
 	s.tree[idx] = s.merger(s.tree[leftIdx], s.tree[rightIdx])
 }
+
+/**
+ * Your NumArray object will be instantiated and called as such:
+ * obj := Constructor(nums);
+ * param_1 := obj.SumRange(left,right);
+ */
+
+// 前缀和
+//type NumArray struct {
+//	sums []int
+//	nums []int
+//}
+//
+//func Constructor(nums []int) NumArray {
+//	if len(nums) <= 0 {
+//		return NumArray{}
+//	}
+//	var sums = make([]int, len(nums))
+//	sums[0] = nums[0]
+//	for i := 1; i < len(nums); i++ {
+//		sums[i] = sums[i-1] + nums[i]
+//	}
+//
+//	return NumArray{sums: sums, nums: nums}
+//}
+//
+//func (this *NumArray) SumRange(i int, j int) int {
+//	return this.sums[j] - this.sums[i] + this.nums[i]
+//}
+
+/**
+ * Your NumArray object will be instantiated and called as such:
+ * obj := Constructor(nums);
+ * param_1 := obj.SumRange(i,j);
+ */

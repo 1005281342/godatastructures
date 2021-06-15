@@ -1,8 +1,33 @@
-package segmenttree
+package main
 
 import (
 	"errors"
 )
+
+type NumArray struct {
+	seg *SegmentTree
+}
+
+func Constructor(nums []int) NumArray {
+	var ns = make([]interface{}, len(nums))
+	for i := 0; i < len(nums); i++ {
+		ns[i] = nums[i]
+	}
+	return NumArray{seg: New(ns, sum)}
+}
+
+func sum(a interface{}, b interface{}) interface{} {
+	return a.(int) + b.(int)
+}
+
+func (this *NumArray) Update(index int, val int) {
+	_ = this.seg.Set(index, val)
+}
+
+func (this *NumArray) SumRange(left int, right int) int {
+	var ans, _ = this.seg.Query(left, right)
+	return ans.(int)
+}
 
 var (
 	ErrIndexIllegal = errors.New("index is illegal")
