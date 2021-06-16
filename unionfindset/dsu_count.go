@@ -5,7 +5,7 @@ type DSUCount struct {
 	count []int
 }
 
-// ConstructorDSUCount
+// ConstructorDSUCount ...
 func ConstructorDSUCount(n int) *DSUCount {
 	var (
 		count = make([]int, n)
@@ -17,12 +17,12 @@ func ConstructorDSUCount(n int) *DSUCount {
 	return &DSUCount{dsu: dsu, count: count}
 }
 
-// Find
+// Find ...
 func (d *DSUCount) Find(a int) int {
 	return d.dsu.Find(a)
 }
 
-// Union
+// Union ...
 func (d *DSUCount) Union(a, b int) bool {
 	// 记录合并前a集合的个数
 	var cntA = d.count[d.Find(a)]
@@ -33,7 +33,7 @@ func (d *DSUCount) Union(a, b int) bool {
 	return true
 }
 
-// Count
+// Count ...
 func (d *DSUCount) Count(a int) int {
 	return d.count[d.Find(a)]
 }
