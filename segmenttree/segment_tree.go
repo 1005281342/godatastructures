@@ -8,17 +8,17 @@ var (
 	ErrIndexIllegal = errors.New("index is illegal")
 )
 
-type Merge func(interface{}, interface{}) interface{}
+type Merger func(interface{}, interface{}) interface{}
 
 // SegmentTree 线段树
 type SegmentTree struct {
 	data   []interface{}
 	tree   []interface{}
-	merger Merge
+	merger Merger
 }
 
 // New new SegmentTree
-func New(array []interface{}, merger Merge) *SegmentTree {
+func New(array []interface{}, merger Merger) *SegmentTree {
 	var seg = &SegmentTree{
 		data:   array,
 		tree:   make([]interface{}, 4*len(array)),
