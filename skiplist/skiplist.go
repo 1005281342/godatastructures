@@ -12,7 +12,7 @@ const (
 	headValue = math.MinInt32
 )
 
-// SkipList跳表
+// SkipList 跳表
 type SkipList struct {
 	// 虚拟头节点，最高层
 	head *node
@@ -46,12 +46,12 @@ func Constructor() SkipList {
 			val: headValue,
 		}, //头节点 设置为一个极小的值
 		level:  1, //跳表层数，初始化为1级
-		length: 1, //原链包的个数（包括虚拟头节点）
+		length: 1, //原链表的个数（包括虚拟头节点）
 	}
 }
 
 // Search 查找是否存在target
-// 由于设置了虚拟节点，那么意味着它存在的话，它必然是某个节点的右节点
+// 由于设置了虚拟节点，那么意味着它存在的话，它必然是某个节点的右节点，就是说它前面一定有一个节点
 func (s *SkipList) Search(target int) bool {
 	s.lock.RLock()
 	defer s.lock.RUnlock()
