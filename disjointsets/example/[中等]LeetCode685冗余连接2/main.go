@@ -1,10 +1,10 @@
 package main
 
-import "github.com/1005281342/godatastructures/unionfindset"
+import "github.com/1005281342/godatastructures/disjointsets"
 
 func findRedundantDirectedConnection(edges [][]int) []int {
 	var (
-		dsu      = unionfindset.ConstructorDSU(1010)
+		dsu      = disjointsets.ConstructorDSU(1010)
 		entryMap = make(map[int][]int)
 		flag     bool
 		nodeY    int

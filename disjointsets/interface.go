@@ -1,4 +1,4 @@
-package unionfindset
+package disjointsets
 
 // UnionFindSet 并查集
 type UnionFindSet interface {

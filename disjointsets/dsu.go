@@ -1,4 +1,4 @@
-package unionfindset
+package disjointsets
 
 type DSU []int
 

@@ -20,6 +20,7 @@ go数据结构实现
 ## 跳表skipList
 
 ## 并查集 
+https://www.cs.usfca.edu/~galles/visualization/DisjointSets.html
 
 ## 树tree
 ### 二叉树

@@ -3,7 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"github.com/1005281342/godatastructures/unionfindset"
+	"github.com/1005281342/godatastructures/disjointsets"
 	"os"
 	"strconv"
 	"strings"
@@ -24,10 +24,10 @@ func main() {
 	var (
 		reader  = bufio.NewReader(os.Stdin)
 		arr     = readIntArray(reader) // len(arr) == 2
-		dsu     *unionfindset.DSUCount
+		dsu     *disjointsets.DSUCount
 		strList []string
 	)
-	dsu = unionfindset.ConstructorDSUCount(arr[0])
+	dsu = disjointsets.ConstructorDSUCount(arr[0])
 	for i := 0; i < arr[1]; i++ {
 		strList = readStrArray(reader)
 		switch strList[0] {

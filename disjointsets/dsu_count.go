@@ -1,4 +1,4 @@
-package unionfindset
+package disjointsets
 
 type DSUCount struct {
 	dsu   DSU

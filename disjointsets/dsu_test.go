@@ -1,4 +1,4 @@
-package unionfindset
+package disjointsets
 
 import (
 	"reflect"
