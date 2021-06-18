@@ -19,8 +19,7 @@ func NewDeque() *Deque {
 func (dq *Deque) Empty() bool {
 	dq.lock.RLock()
 	defer dq.lock.RUnlock()
-
-	return 0 == dq.lst.Len()
+	return dq.lst.Len() == 0
 }
 
 // Len 当前队列长度
@@ -32,7 +31,6 @@ func (dq *Deque) Len() int {
 func (dq *Deque) LAppend(v interface{}) bool {
 	dq.lock.Lock()
 	defer dq.lock.Unlock()
-
 	var e = dq.lst.PushFront(v)
 	return e != nil
 }
@@ -45,17 +43,14 @@ func (dq *Deque) LPop() (interface{}, bool) {
 
 	dq.lock.Lock()
 	defer dq.lock.Unlock()
-
 	var v = dq.lst.Remove(dq.lst.Front())
 	return v, true
 }
 
 // Append 从右边添加元素, return是否添加成功
 func (dq *Deque) Append(v interface{}) bool {
-
 	dq.lock.Lock()
 	defer dq.lock.Unlock()
-
 	var e = dq.lst.PushBack(v)
 	return e != nil
 }
@@ -68,7 +63,6 @@ func (dq *Deque) Pop() (interface{}, bool) {
 
 	dq.lock.Lock()
 	defer dq.lock.Unlock()
-
 	var v = dq.lst.Remove(dq.lst.Back())
 	return v, true
 }

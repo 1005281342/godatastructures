@@ -4,8 +4,11 @@ package trie
 type Type int32
 
 const (
+	// EmHashTrie 哈希前缀树
 	EmHashTrie = iota
+	// EmListTrie 列表前缀树
 	EmListTrie
+	// EmArrayTrie 数组前缀树
 	EmArrayTrie
 )
 

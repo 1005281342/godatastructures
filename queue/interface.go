@@ -23,6 +23,5 @@ func NewDeque(cap int) Deque {
 	if cap > 0 {
 		return ringqueue.NewRingQueue(cap)
 	}
-
 	return deque.NewDeque()
 }

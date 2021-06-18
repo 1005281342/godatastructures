@@ -6,18 +6,17 @@ import (
 )
 
 type Stack interface {
-	// 添加一个元素
+	// Push 添加一个元素
 	Push(interface{}) bool
-	// 批量添加
+	// BatchPush 批量添加
 	BatchPush(...interface{}) bool
-	// 弹出栈顶元素
+	// Pop 弹出栈顶元素
 	Pop() (interface{}, bool)
-	// 获取栈顶元素
+	// Top 获取栈顶元素
 	Top() (interface{}, bool)
-
-	// 栈为空
+	// Empty 栈为空
 	Empty() bool
-	// 已使用大小
+	// Len 已使用大小
 	Len() int
 	//// 可用的
 	//Usable() int
@@ -27,6 +26,9 @@ type Stack interface {
 	//Capacity() int
 }
 
+// NewStack 创建一个栈
+// if cap <= 0 return 无固定容量的栈
+// else return 固定容量的栈
 func NewStack(cap int) Stack {
 	if cap <= 0 {
 		return stack.NewStack()

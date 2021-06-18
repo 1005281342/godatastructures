@@ -12,6 +12,7 @@ type Item struct {
 // A PriorityQueue implements heap.*Item and holds Items.
 type PriorityQueue []*Item
 
+// NewPriorityQueue 新建一个优先队列
 func NewPriorityQueue(items ...*Item) PriorityQueue {
 	return items
 }
@@ -58,7 +59,6 @@ func (pq *PriorityQueue) update(item *Item, value interface{}, priority int) {
 // and may be called whenever the heap invariants may have been invalidated.
 // The complexity is O(n) where n = h.Len().
 func Init(h *PriorityQueue) {
-
 	n := h.Len()
 	for i := n/2 - 1; i >= 0; i-- {
 		down(h, i, n)

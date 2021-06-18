@@ -5,9 +5,11 @@ import (
 )
 
 var (
+	// ErrIndexIllegal 索引非法
 	ErrIndexIllegal = errors.New("index is illegal")
 )
 
+// Merger 用户自定义区间内操作逻辑
 type Merger func(interface{}, interface{}) interface{}
 
 // SegmentTree 线段树
@@ -53,7 +55,7 @@ func (s *SegmentTree) buildSegmentTree(idx int, left int, right int) {
 	s.buildSegmentTree(leftTreeIdx, left, mid)
 	// 创建右子树的线段树
 	s.buildSegmentTree(rightTreeIdx, mid+1, right)
-
+	// merger
 	s.tree[idx] = s.merger(s.tree[leftTreeIdx], s.tree[rightTreeIdx])
 }
 

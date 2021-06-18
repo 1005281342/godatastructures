@@ -13,6 +13,7 @@ func NewHashTrie() *HashTrie {
 	return &HashTrie{children: make(map[byte]*HashTrie)}
 }
 
+// Insert 往前缀树中添加一个元素word
 func (h *HashTrie) Insert(word string) {
 	var curNode = h
 	for i := 0; i < len(word); i++ {
@@ -24,6 +25,7 @@ func (h *HashTrie) Insert(word string) {
 	curNode.isWord = true
 }
 
+// Search 查找前缀树中是否元素word
 func (h *HashTrie) Search(word string) bool {
 	var _, has = h.search(word)
 	return has
@@ -40,6 +42,7 @@ func (h *HashTrie) search(word string) (*HashTrie, bool) {
 	return curNode, curNode.isWord
 }
 
+// HasPrefix 查询前缀树中是否存在前缀prefix
 func (h *HashTrie) HasPrefix(prefix string) bool {
 	var curNode = h
 	for i := 0; i < len(prefix); i++ {

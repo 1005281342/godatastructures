@@ -1,6 +1,6 @@
 package skiplist
 
-type Skiplist interface {
+type ISkipList interface {
 	// Search 查找是否存在target
 	Search(target int) bool
 	// Add 添加元素

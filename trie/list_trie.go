@@ -14,6 +14,7 @@ func NewListTrie() *ListTrie {
 	return new(ListTrie)
 }
 
+// Insert 往前缀树中添加一个元素word
 func (a *ListTrie) Insert(word string) {
 	var (
 		curNode = a
@@ -37,6 +38,7 @@ func (a *ListTrie) find(c byte) *ListTrie {
 	return nil
 }
 
+// Search 查找前缀树中是否元素word
 func (a *ListTrie) Search(word string) bool {
 	var _, has = a.search(word)
 	return has
@@ -53,6 +55,7 @@ func (a *ListTrie) search(word string) (*ListTrie, bool) {
 	return curNode, curNode.isWord
 }
 
+// HasPrefix 查询前缀树中是否存在前缀prefix
 func (a *ListTrie) HasPrefix(prefix string) bool {
 	var curNode = a
 	for i := 0; i < len(prefix); i++ {

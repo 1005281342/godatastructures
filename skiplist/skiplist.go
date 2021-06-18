@@ -55,7 +55,6 @@ func Constructor() SkipList {
 func (s *SkipList) Search(target int) bool {
 	s.lock.RLock()
 	defer s.lock.RUnlock()
-
 	return s.getBefore(target, s.head) != nil
 }
 
@@ -63,28 +62,28 @@ func (s *SkipList) Search(target int) bool {
 func (s *SkipList) Add(num int) {
 	s.lock.Lock()
 	defer s.lock.Unlock()
-
 	var (
 		n     = s.head
 		i     int
 		nodes = make([]*node, s.level+1)
 	)
-
 	// 从最高层往下查找符合条件的节点
 	for n != nil {
-		// 直到找到一个节点的下一个节点是大于目标值的
 		for n.right != nil && n.right.val < num {
+			// 直到找到一个节点的下一个节点是大于目标值的
 			n = n.right
 		}
 		nodes[i] = n
 		i++
 		n = n.down
 	}
-	i-- // 最后一个i是没有值的要去掉
+	// 最后一个i是没有值的要去掉
+	i--
 
 	// 最底层链表添加新节点
 	var (
-		beforeNode = nodes[i] // 原链表的的前值
+		// 原链表的的前值
+		beforeNode = nodes[i]
 		newNode    = &node{
 			val:   num,
 			right: beforeNode.right,
@@ -132,7 +131,6 @@ func (s *SkipList) Add(num int) {
 func (s *SkipList) Erase(num int) bool {
 	s.lock.Lock()
 	defer s.lock.Unlock()
-
 	var (
 		target = num
 		before = s.getBefore(target, s.head)
@@ -161,13 +159,12 @@ func (s *SkipList) Erase(num int) bool {
 func (s *SkipList) getBefore(target int, from *node) *node {
 	var n = from
 	for n != nil {
-
-		// 如果n存在右节点
 		for n.right != nil && n.right.val < target {
+			// 如果n存在右节点
 			n = n.right
 		}
-		// 找到了
 		if n.right != nil && n.right.val == target {
+			// 找到了
 			return n
 		}
 		// 没找到到下一级找
