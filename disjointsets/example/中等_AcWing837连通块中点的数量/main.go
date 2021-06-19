@@ -3,15 +3,17 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"github.com/1005281342/godatastructures/disjointsets"
 	"os"
 	"strconv"
 	"strings"
+
+	"github.com/1005281342/godatastructures/disjointsets"
 )
 
 const (
-	Find  = "Q"
-	Union = "M"
+	Find  = "Q1"
+	Count = "Q2"
+	Union = "C"
 )
 
 const (
@@ -23,10 +25,10 @@ func main() {
 	var (
 		reader  = bufio.NewReader(os.Stdin)
 		arr     = readIntArray(reader) // len(arr) == 2
-		dsu     disjointsets.DSU
+		dsu     *disjointsets.DSUCount
 		strList []string
 	)
-	dsu = disjointsets.ConstructorDSU(arr[0])
+	dsu = disjointsets.ConstructorDSUCount(arr[0])
 	for i := 0; i < arr[1]; i++ {
 		strList = readStrArray(reader)
 		switch strList[0] {
@@ -38,6 +40,8 @@ func main() {
 			}
 		case Union:
 			dsu.Union(str2Int(strList[1])-1, str2Int(strList[2])-1)
+		case Count:
+			fmt.Println(dsu.Count(str2Int(strList[1]) - 1))
 		default:
 			fmt.Println(No)
 		}
@@ -88,4 +92,4 @@ func nums2string(x []int, sep string) string {
 	return b.String()
 }
 
-// https://www.acwing.com/problem/content/838/
+// https://www.acwing.com/problem/content/839/

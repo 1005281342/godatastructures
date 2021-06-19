@@ -1,9 +1,40 @@
-package deque
+package main
 
 import (
 	"container/list"
 	"sync"
 )
+
+type RecentCounter struct {
+	dq *Deque
+}
+
+func Constructor() RecentCounter {
+	return RecentCounter{dq: NewDeque()}
+}
+
+func (this *RecentCounter) Ping(t int) int {
+	for {
+		var h = this.dq.Head()
+		var v, ok = h.(int)
+		if !ok {
+			break
+		}
+		if v < t-3000 {
+			this.dq.LPop()
+		} else {
+			break
+		}
+	}
+	this.dq.Append(t)
+	return this.dq.Len()
+}
+
+/**
+ * Your RecentCounter object will be instantiated and called as such:
+ * obj := Constructor();
+ * param_1 := obj.Ping(t);
+ */
 
 type Deque struct {
 	// 队列
