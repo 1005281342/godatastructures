@@ -251,3 +251,5 @@ func nums2string(x []int, sep string) string {
 	}
 	return b.String()
 }
+
+// https://www.acwing.com/problem/content/1277/

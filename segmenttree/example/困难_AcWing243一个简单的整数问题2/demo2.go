@@ -1,7 +1,7 @@
 package main
 
 // TODO: 涉及interface转int，提交执行超时
-
+// https://www.acwing.com/problem/content/244/
 //import (
 //	"bufio"
 //	"errors"

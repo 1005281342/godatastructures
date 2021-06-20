@@ -2,7 +2,7 @@ package main
 
 // TODO: 这是一个较为通用的模版，会超时，主要是在懒惰更新时 for right-left+1，我们实际上可以根据不同的merger情况进行优化
 // 比如merger -> a+b时可以优化为 s.tree[idx] += (right-left+1)*s.lazy[idx]
-
+// https://www.acwing.com/problem/content/244/
 //import (
 //	"bufio"
 //	"errors"
