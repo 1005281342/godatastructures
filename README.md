@@ -46,7 +46,7 @@ https://visualgo.net/zh/segmenttree
 ### LSM树
 
 ## TODO
-### 主席树
+### 主席树 可持久化线段树
 ### Splay
 ### 左偏树
 ### 块状链表
