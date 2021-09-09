@@ -1,5 +1,6 @@
 package disjointsets
 
+// DSUCount ...
 type DSUCount struct {
 	dsu   DSU
 	count []int

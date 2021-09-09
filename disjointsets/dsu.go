@@ -1,5 +1,6 @@
 package disjointsets
 
+// DSU ...
 type DSU []int
 
 // ConstructorDSU 创建容量为n的并查集
